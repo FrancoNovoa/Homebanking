@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="shortcut icon" href="assets/img/soloSimboloLogo.ico" type="image/x-icon">
+  <title>Manager</title>
+</head>
+
+<body id="imagenManager">
+  <div id="app">
+    <header>
+      <nav class="navbar navbar-expand-lg colorRosa">
+        <div class="container-fluid">
+          <a href="#" class="navbar-brand"><img class="tamanoLogoNav" src="./assets/img/4387f67b-720c-4319-8a41-613ef3024d91-removebg-preview.png" alt="Logo"></a>
+          <button class="navbar-toggler tamanobottonQueris" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="d-flex flex-wrap flex-lg-nowrap justify-content-evenly align-items-center gap-3 gap-md-5">
+              <a href="./landing.html" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 ms-2">Home<i class="fal fa-home-alt fs-5"></i></a>
+              <a :href="'./accounts.html?id=' + clients.id" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 ms-2 ">Accounts <i class="fal fa-user fs-5"></i> </a>
+              <a :href="'./cards.html?id=' + clients.id" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 ms-2">Cards <i class="fal fa-credit-card-front fs-5"></i> </a>
+              <a href="#" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 me-2 active">Admin <i class="fal fa-user-cog fs-5"></i></a>
+              <a style="cursor: pointer;"  class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 me-2" @click="logout()">Logout <i class="fal fa-sign-out fs-5"></i> </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <video src="./assets/img/PatrÃ³n - 87789.mp4" muted autoplay loop class=""></video>
+      <section>
+        <h1 class="text-center text-black">Client Manager</h1>
+      </section>
+      <section class="text-center">
+        <form action="">
+          <div class="m-lg-4">
+            <input type="text" name="" id="" placeholder="Name..." v-model="name" required class="form-control">
+          </div>
+          <div class="m-lg-4">
+            <input type="text" name="" id="" placeholder="Last Name..." v-model="lastName" required class="form-control">
+          </div>
+          <div class="m-lg-4">
+            <input type="text" name="" id="" placeholder="Email..." v-model="email" required class="form-control">
+          </div>
+          <div class="m-lg-4">
+            <button type="submit" @click="addClient()" class="nav-link fw-bold opacidad100 gap-4 btn btn-danger">Add Client</button>
+          </div>
+        </form>
+      </section>
+      <section>
+        <h1 class="text-center text-black">Client List</h1>
+        <table class="table table-responsive w-75 m-lg-auto">
+          <thead class="bg-dark text-light">
+            <tr>
+              <th class="text-center">First Name</th>
+              <th class="text-center">Last Name</th>
+              <th class="text-center">Email</th>
+              <th class="text-center">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="client in clients">
+              <td class="text-center bg-light">{{client.name}}</td>
+              <td class="text-center bg-light">{{client.lastName}}</td>
+              <td class="text-center bg-light">{{client.email}}</td>
+              <td class="text-center bg-light d-flex justify-content-evenly">
+                <button class="btn btn-danger" @click="deleteClient(client)"><i class="bi bi-trash3"></i></button>
+                <button class="btn btn-dark" @click="editClient(client)"><i class="bi bi-pencil"></i></button>
+                <a :href="'/web/accounts.html?id=' + client.id" class="btn btn-dark" ><i class="bi bi-eye"></i></a>
+              </td>  
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <h3 class="text-center mt-4">List clients complete</h3>
+      <section class="text-center opacidad100 d-flex justify-content-evenly align-items-baseline flex-wrap mt-3">
+        <div v-for="clientes in clients">
+          <h5>{{clientes.name}} {{clientes.lastName}}</h5>
+          <h5 v-for="cuenta in clientes.account">Acc.N°: {{cuenta.number}} - ${{cuenta.balance}}</h5>
+          <h5 v-for="loan in clientes.loans">Loans: {{loan.nameLoan}} - ${{loan.amountRequest}}</h5>
+          <h5 v-for="card in clientes.cards">Cards: {{card.cardType}}, {{card.cardColor}}</h5>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="d-flex justify-content-around bg-dark align-items-end">
+        <img class="tamanoLogoFooter" src="./assets/img/soloSimboloLogo copy.png" alt="VruBank logo">
+        <p class="letraTamanoFooter text-light">Author: <a href="https://www.instagram.com/franconovoa_/?hl=es-la" target="_blank" class="letraTamanoFooter text-light">Franco Novoa</a> </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="assets/manager.js"></script>
+</body>
+
+</html>

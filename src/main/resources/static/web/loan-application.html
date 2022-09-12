@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="shortcut icon" href="assets/img/soloSimboloLogo.ico" type="image/x-icon">
+  <title>Apply loan</title>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <nav class="navbar navbar-expand-lg colorRosa">
+        <div class="container-fluid">
+          <a href="./landing.html" class="navbar-brand"><img class="tamanoLogoNav" src="./assets/img/4387f67b-720c-4319-8a41-613ef3024d91-removebg-preview.png" alt="Logo"></a>
+          <button class="navbar-toggler tamanobottonQueris" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="d-flex flex-wrap flex-lg-nowrap justify-content-evenly align-items-center gap-3 gap-md-5">
+              <a href="./landing.html" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 ms-2">Home<i class="fal fa-home-alt fs-5"></i></a>
+              <a :href="'./accounts.html?id=' + clientes.id" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 ms-2 ">Accounts <i class="fal fa-user fs-5"></i> </a>
+              <a :href="'./cards.html?id=' + clientes.id" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 ms-2">Cards <i class="fal fa-credit-card-front fs-5"></i> </a>
+              <a href="./manager.html" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 me-2">Admin <i class="fal fa-user-cog fs-5"></i></a>
+              <a style="cursor: pointer;"  class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 me-2" @click="logout()">Logout <i class="fal fa-sign-out fs-5"></i> </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <video src="./assets/img/PatrÃ³n - 87789.mp4" muted autoplay loop></video>
+      <h2 class="text-center">Select which loan you want to apply for</h2>
+      <div class="d-flex flex-column justify-content-evenly align-items-center flex-md-row">
+        <section class="mt-4">
+          <form  @sumbit.prevent="" class="d-flex flex-column justify-content-center align-items-center form_loanAppli">
+            <h5>Loan name</h5>
+            <select name="loanName" id="loanName" v-model="loanName" class="form-select" aria-label="Default select example">
+              <option value="" selected disabled>Please select one</option>
+              <option :value="loanName.nameLoan" v-for="loanName in loansPropiertis">{{loanName.nameLoan}}</option>
+            </select>
+            <h5>Payments</h5>
+            <select name="lasCuotas" id="lasCuotas" v-model="lasCuotas" v-if="loanName == 'Car'" v-for="loan in loanCar" class="form-select" aria-label="Default select example">
+              <option value="" selected disabled>Please select one</option>
+              <option :value="payment" v-for="payment in loan.paymentsList">{{payment}}</option>
+            </select>
+            <select name="lasCuotas" id="lasCuotas" v-model="lasCuotas" v-if="loanName == 'Personal'" v-for="loan in loanPersonal" class="form-select" aria-label="Default select example">
+              <option value="" selected disabled>Please select one</option>
+              <option :value="payment" v-for="payment in loan.paymentsList">{{payment}}</option>
+            </select>
+            <select name="lasCuotas" id="lasCuotas" v-model="lasCuotas" v-if="loanName == 'Mortgage'" v-for="loan in loanMort" class="form-select" aria-label="Default select example">
+              <option value="" selected disabled>Please select one</option>
+              <option :value="payment" v-for="payment in loan.paymentsList">{{payment}}</option>
+            </select>
+            <h5>Amount</h5>
+            <input type="number" name="amount" id="amount" v-model="amount" placeholder="$10000" class="form-control">
+            <h6>You must pay a total of ${{pagarTotal}}</h6>
+            <h5>Account N° to deposit</h5>
+            <select name="" id="" v-model="accountNumberDeposit" class="form-select" aria-label="Default select example">
+              <option value="" selected disabled>Please select one</option>
+              <option :value="cuenta.number" v-for="cuenta in cuentas">{{cuenta.number}}-${{cuenta.balance}}</option>
+            </select>
+            <div v-if="amount != '' && lasCuotas != ''" class="mt-3">
+              <h4>You will pay {{lasCuotas}} quotes of ${{aplicandoPorcentajes}}</h4>
+            </div>
+            <div class="mt-3">
+              <a class="nav-link fw-bold opacidad100 gap-4 btn btn-danger" @click="pedirLoan()">Apply loan</a>
+            </div>
+          </form>
+        </section>
+        <section class="mt-4">
+          <h2 class="text-center">Loans avaible</h2>
+          <table class="table table-responsive mt-lg-3">
+            <thead>
+              <tr class="colorRojo text-light text-center">
+                <th scope="col">Loan name</th>
+                <th scope="col">Amount max to request</th>
+                <th scope="col">Payments avaible</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr class="text-bold fst-italic opacidad100 colorGris" v-for="loan in loansPropiertis">
+                <td class="text-center">{{loan.nameLoan}}</td>
+                <td class="text-center">$ {{loan.amountMax.toLocaleString('es-MX')}}</td>
+                <td class="text-center">{{loan.paymentsList}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <div class="d-flex justify-content-around bg-dark align-items-end">
+        <img class="tamanoLogoFooter" src="./assets/img/soloSimboloLogo copy.png" alt="VruBank logo">
+        <p class="letraTamanoFooter text-light">Author: <a href="https://www.instagram.com/franconovoa_/?hl=es-la" target="_blank" class="letraTamanoFooter text-light">Franco Novoa</a> </p>
+      </div>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="./assets/loan-application.js"></script>
+</body>
+</html>

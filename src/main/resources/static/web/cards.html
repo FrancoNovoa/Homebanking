@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="shortcut icon" href="assets/img/soloSimboloLogo.ico" type="image/x-icon">
+  <title>Cards</title>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <nav class="navbar navbar-expand-lg colorRosa">
+        <div class="container-fluid">
+          <a href="./landing.html" class="navbar-brand"><img class="tamanoLogoNav" src="./assets/img/4387f67b-720c-4319-8a41-613ef3024d91-removebg-preview.png" alt="Logo"></a>
+          <button class="navbar-toggler tamanobottonQueris" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <div class="d-flex flex-wrap flex-lg-nowrap justify-content-evenly align-items-center gap-3 gap-md-5">
+                <a href="./landing.html" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 ms-2">Home <i class="fal fa-home-alt fs-5"></i></a>
+                  <a :href="'./accounts.html?id=' + clientes.id" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 ms-2">Accounts <i class="fal fa-user fs-5"></i></a>
+                  <a href="#" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 ms-2 active">Cards <i class="fal fa-credit-card-front fs-5"></i></a>
+                  <a href="./manager.html" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 me-2">Admin <i class="fal fa-user-cog fs-5"></i></a>
+                  <a style="cursor: pointer;" class="nav-link fw-bold opacidad100 d-flex align-items-center gap-2 me-2" @click="logout()">Logout <i class="fal fa-sign-out fs-5"></i> </a>
+              </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main id="bodyCodepen">
+      <video src="./assets/img/PatrÃ³n - 87789.mp4" muted autoplay loop class=""></video>
+      <div v-if="tarjetas != ''"  class="d-flex flex-column gap-lg-5">
+          <h2  class="opacidad100 fw-bolder text-center">These are your cards</h2>
+          <div class="d-flex flex-column flex-lg-row justify-content-lg-center flex-lg-wrap flex-md-row flex-md-wrap justify-content-md-evenly align-item gap-lg-3">
+            <div v-for="card in tarjetasActivas" class="card mt-2 mb-3">
+              <h4 v-if="diaActual >= 0" class="card.untilDate" class="mostrar text-center text-bg-danger">This card is expired</h4>
+              <div class="card__front" :class="card.cardColor == 'GOLD' ? 'card__part_gold' : card.cardColor == 'SILVER' ? 'card__part_silver' : 'card__part'">
+                <p class="card__front-square card__square  fw-bold">{{card.cardColor}}</p>
+                <img class="card__front-logo card__logo" src="./assets/img/Visa-Logo-Free-PNG.png">
+                <p class="card_numer  fw-bold">{{card.numberCard}}</p>
+                <div class="card__space-75">
+                  <span class="card__label fw-bold">{{card.cardType}}</span>
+                  <p class="card__info  fw-bold">{{card.cardHolder}}</p>
+                </div>
+                <div class="card__space-25">
+                  <span class="card__label  fw-bold">Expires</span>
+                        <p class="card__info fw-bold">{{card.untilDate}}</p> 
+                </div>
+              </div>
+              <div class="card__back" :class="card.cardColor == 'GOLD' ? 'card__part_gold' : card.cardColor == 'SILVER' ? 'card__part_silver' : 'card__part'">
+                <div class="card__black-line"></div>
+                <div class="card__back-content">
+                  <div class="card__secret">
+                    <p class="card__secret--last">{{card.cvv}}</p>
+                  </div>
+                  <img class="card__back-square card__square" src="./assets/img/soloSimboloLogo copy.png">
+                  <img class="card__back-logo card__logo" src="./assets/img/Visa-Logo-Free-PNG.png">
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+        <div v-else="">
+          <h2 class="opacidad100 fw-bolder esEste">You don't have cards</h2>
+        </div>
+        <div class="d-flex flex-row justify-content-center gap-3">
+          <div v-if="tarjetasActivas.length  < 6">
+            <a href="./createCards.html" class="nav-link fw-bold opacidad100 gap-2 btn btn-danger d-flex align-items-center" >Create Card <i class="fal fa-credit-card"></i></a>
+          </div>
+          <div v-if="tarjetasActivas.length != 0">
+            <a type="button" class="nav-link fw-bold opacidad100 gap-4 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Delete Card <i class="fal fa-trash"></i>
+            </a>
+          </div>
+          <div>
+            <a href="./paymentCard.html" class="nav-link fw-bold opacidad100 gap-4 btn btn-danger">Make a transaction</a>
+          </div>
+        </div>
+        <!-- MODAL -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Please select which card you want to delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <select name="" id="" v-model="selectCartaBorrar" class="form-select" aria-label="Default select example">
+                  <option value="" selected disabled>Please select one</option>
+                  <option :value="card.numberCard" v-for="card in tarjetasActivas">{{card.cardType}} - {{card.cardColor}} - {{card.numberCard}}</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" @click="deleteCard">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+    <footer>
+      <div class="d-flex justify-content-around bg-dark align-items-end">
+        <img class="tamanoLogoFooter" src="./assets/img/soloSimboloLogo copy.png" alt="VruBank logo">
+        <p class="letraTamanoFooter text-light">Author: <a href="https://www.instagram.com/franconovoa_/?hl=es-la" target="_blank" class="letraTamanoFooter text-light">Franco Novoa</a> </p>
+      </div>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="./assets/cards.js"></script>
+</body>
+</html>
