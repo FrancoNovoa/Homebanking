@@ -64,8 +64,8 @@
           </div>
         </div>
         <h2 v-else="" class="text-center">You don't have accounts created yet.</h2>
-        <div class="divBotonCreatedAccount d-flex justify-content-md-center align-items-md-center mt-lg-2 gap-lg-2">
-          <button v-if="cuentas != ''" type="button" class="nav-link fw-bold opacidad100 gap-4 btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <div class="divBotonCreatedAccount d-flex justify-content-center align-items-center mt-lg-2 gap-2">
+          <button v-if="cuentas != ''" type="button" class="nav-link fw-bold opacidad100 gap-4 btn btn-danger d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Delete Account <i class="fal fa-trash"></i>
           </button>
           <!-- Modal -->
@@ -89,7 +89,7 @@
               </div>
             </div>
           </div>
-          <button v-if="cuentas.length  < 3" type="button" class="nav-link fw-bold opacidad100 gap-4 btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button v-if="cuentas.length  < 3" type="button" class="nav-link fw-bold opacidad100 gap-4 btn btn-danger d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Create Account <i class="fal fa-user-plus"></i>
           </button>
           <!--  MODAL -->
@@ -138,7 +138,7 @@
         </div>
         <h2 v-else="" class="text-center">You haven't applied for loans yet.</h2>
         <div v-if="prestamos.length  < 3" class="d-flex justify-content-center align-items-center mt-3">
-          <a href="./loan-application.html" class="nav-link fw-bold opacidad100 gap-4 btn btn-danger">Apply loan <i class="fal fa-plus-square"></i></a>
+          <a href="./loan-application.html" class="nav-link fw-bold opacidad100 gap-4 btn btn-danger d-flex align-items-center">Apply loan <i class="fal fa-plus-square"></i></a>
         </div>
       </section>
     </main>
