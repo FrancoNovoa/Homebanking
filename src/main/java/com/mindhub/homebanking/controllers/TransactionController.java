@@ -116,10 +116,11 @@ public class TransactionController {
         document.add(paragraph);
         document.close();
     }
+    @CrossOrigin(origins = "http://localhost:8080")
     @Transactional
     @PostMapping("/api/transactions/payment")
-    public ResponseEntity<Object> payment (@RequestBody PaymentApplicationDTO paymentApplicationDTO, Authentication authentication){
-        Client client = clientService.findByEmail(authentication.getName());
+    public ResponseEntity<Object> payment (@RequestBody PaymentApplicationDTO paymentApplicationDTO){
+//        Client client = clientService.findByEmail(authentication.getName());
         Account account = accountService.findByNumber(paymentApplicationDTO.getAccountNumber());
         Account accountTo = accountService.findByNumber(paymentApplicationDTO.getAccountNumberTo());
         Card card = cardService.findByNumberCard(paymentApplicationDTO.getCardNumber());
@@ -132,9 +133,9 @@ public class TransactionController {
         if (!paymentApplicationDTO.getThruDate().isAfter(LocalDateTime.now())){
             return new ResponseEntity<>("This card was expired", HttpStatus.FORBIDDEN);
         }
-        if (!client.getCards().contains(card)){
-            return new ResponseEntity<>("This card is not yours", HttpStatus.FORBIDDEN);
-        }
+//        if (!client.getCards().contains(card)){
+//            return new ResponseEntity<>("This card is not yours", HttpStatus.FORBIDDEN);
+//        }
         if (account.getBalance() < paymentApplicationDTO.getAmount()){
             return new ResponseEntity<>("Your balance is lower than amount", HttpStatus.FORBIDDEN);
         }
