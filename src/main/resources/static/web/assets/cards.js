@@ -39,7 +39,7 @@ const { createApp } = Vue
       },
       fechaNormal(arrayData){
         arrayData.forEach(fechaBroder => {
-          fechaBroder.untilDate = fechaBroder.untilDate
+          fechaBroder.untilDate = fechaBroder.untilDate.slice(2,7)
         })
       },
       logout(){
