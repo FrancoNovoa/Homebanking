@@ -117,6 +117,7 @@ public class TransactionController {
         document.add(paragraph);
         document.close();
     }
+//    @CrossOrigin("http://localhost:8080")
     @Transactional
     @PostMapping("/api/transactions/payment")
     public ResponseEntity<Object> payment (@RequestBody PaymentApplicationDTO paymentApplicationDTO){
