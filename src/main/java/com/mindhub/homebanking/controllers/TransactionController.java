@@ -116,7 +116,6 @@ public class TransactionController {
         document.add(paragraph);
         document.close();
     }
-
     @Transactional
     @PostMapping("/api/transactions/payment")
     public ResponseEntity<Object> payment (@RequestBody PaymentApplicationDTO paymentApplicationDTO){
