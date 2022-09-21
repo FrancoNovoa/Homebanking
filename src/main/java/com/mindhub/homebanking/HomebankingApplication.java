@@ -32,10 +32,12 @@ public class HomebankingApplication {
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return (args) -> {
 			Client cliente1 = new Client("Melba", "Lorenzo","melbita@mindhub.com",passwordEncoder.encode("melbagordita"));
-			Client cliente2 = new Client("Juan Sebastian", "Veron", "brujita7-0@hotmail.com",passwordEncoder.encode("tecomiste7") );
+			Client cliente2 = new Client("Juan Sebastian", "Veron", "brujita7-0@hotmail.com",passwordEncoder.encode("tecomiste7"));
+			Client skyAdmin = new Client("Sky", "Walkies","skywalkies.store@admin.com",passwordEncoder.encode("proyectoFinal"));
 			Account cuenta1 = new Account("VIN001", LocalDateTime.now(), 5000.0, CURRENT, true);
 			Account cuenta2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500.0, SAVINGS, true);
 			Account cuenta3 = new Account("VIN777", LocalDateTime.now(),7070.0, CURRENT, true);
+			Account cuentaSkywalkies = new Account("VIN7070", LocalDateTime.now(), 5000.0, CURRENT, true);
 			Transaction transaccion1 = new Transaction(TransactionType.CREDIT, 1000.0, "You're a good person", LocalDateTime.now());
 			Transaction transaccion2 = new Transaction(TransactionType.DEBIT, -500.0, "You're a bad person", LocalDateTime.now());
 			Loan prestamo1 = new Loan("Mortgage", 500000.00, Arrays.asList(12,24,36,48,60));
@@ -56,9 +58,11 @@ public class HomebankingApplication {
 			cuenta1.addTransaction(transaccion2);
 			clientRepository.save(cliente1);
 			clientRepository.save(cliente2);
+			clientRepository.save(skyAdmin);
 			accountRepository.save(cuenta1);
 			accountRepository.save(cuenta2);
 			accountRepository.save(cuenta3);
+			accountRepository.save(cuentaSkywalkies);
 			transactionRepository.save(transaccion1);
 			transactionRepository.save(transaccion2);
 			loanRepository.save(prestamo1);

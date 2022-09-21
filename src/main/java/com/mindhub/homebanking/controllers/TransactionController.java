@@ -117,15 +117,15 @@ public class TransactionController {
         document.add(paragraph);
         document.close();
     }
-//    @CrossOrigin("http://localhost:8080")
+    @CrossOrigin("http://localhost:8080")
     @Transactional
     @PostMapping("/api/transactions/payment")
     public ResponseEntity<Object> payment (@RequestBody PaymentApplicationDTO paymentApplicationDTO){
 //        Client client = clientService.findByEmail(authentication.getName());
         Account account = accountService.findByNumber(paymentApplicationDTO.getAccountNumber());
-//        Account accountTo = accountService.findByNumber(paymentApplicationDTO.getAccountNumberTo());
+        Account accountTo = accountService.findByNumber(paymentApplicationDTO.getAccountNumberTo());
         Card card = cardService.findByNumberCard(paymentApplicationDTO.getCardNumber());
-        if (paymentApplicationDTO.getAmount() <= 0 || paymentApplicationDTO.getDescription().isEmpty() || paymentApplicationDTO.getAccountNumber().isEmpty() ||  paymentApplicationDTO.getCardCvv() < 0){
+        if (paymentApplicationDTO.getAmount() <= 0 || paymentApplicationDTO.getDescription().isEmpty()|| paymentApplicationDTO.getAccountNumberTo().isEmpty() || paymentApplicationDTO.getAccountNumber().isEmpty() ||  paymentApplicationDTO.getCardCvv() < 0){
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
         if (!card.isActiveCard()){
@@ -146,20 +146,20 @@ public class TransactionController {
         if (!card.getCvv().equals(paymentApplicationDTO.getCardCvv())){
             return new ResponseEntity<>("Invalid Cvv", HttpStatus.FORBIDDEN);
         }
-//        if (accountTo == null){
-//            return new ResponseEntity<>("That account doesn't exist", HttpStatus.FORBIDDEN);
-//        }
-//        if (!accountTo.isActiveAcc()){
-//            return new ResponseEntity<>("That account is disable", HttpStatus.FORBIDDEN);
-//        }
+        if (accountTo == null){
+            return new ResponseEntity<>("That account doesn't exist", HttpStatus.FORBIDDEN);
+        }
+        if (!accountTo.isActiveAcc()){
+            return new ResponseEntity<>("That account is disable", HttpStatus.FORBIDDEN);
+        }
         Transaction transactionPaymentFrom = new Transaction(account, DEBIT, paymentApplicationDTO.getAmount() * (-1), paymentApplicationDTO.getDescription(), LocalDateTime.now());
-//        Transaction transactionTo = new Transaction(accountTo, CREDIT, paymentApplicationDTO.getAmount(), paymentApplicationDTO.getDescription(), LocalDateTime.now());
+        Transaction transactionTo = new Transaction(accountTo, CREDIT, paymentApplicationDTO.getAmount(), paymentApplicationDTO.getDescription(), LocalDateTime.now());
         transactionService.saveTrans(transactionPaymentFrom);
-//        transactionService.saveTrans(transactionTo);
+        transactionService.saveTrans(transactionTo);
         account.setBalance(account.getBalance() - paymentApplicationDTO.getAmount());
-//        accountTo.setBalance(accountTo.getBalance() + paymentApplicationDTO.getAmount());
+        accountTo.setBalance(accountTo.getBalance() + paymentApplicationDTO.getAmount());
         accountService.saveAccount(account);
-//        accountService.saveAccount(accountTo);
+        accountService.saveAccount(accountTo);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

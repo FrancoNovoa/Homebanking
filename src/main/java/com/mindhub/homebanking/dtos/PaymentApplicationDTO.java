@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public class PaymentApplicationDTO {
   private long id;
-  private String cardNumber, description, cardHolder, accountNumber;
+  private String cardNumber, description, cardHolder, accountNumber, accountNumberTo;
   private int cardCvv;
   private double amount;
   private LocalDate thruDate;
@@ -24,6 +24,7 @@ public class PaymentApplicationDTO {
     this.thruDate = card.getUntilDate();
     this.cardHolder = card.getCardHolder();
     this.accountNumber = account.getNumber();
+    this.accountNumberTo = account.getNumber();
   }
 
   public long getId() {
@@ -56,5 +57,9 @@ public class PaymentApplicationDTO {
 
   public LocalDate getThruDate() {
     return thruDate;
+  }
+
+  public String getAccountNumberTo() {
+    return accountNumberTo;
   }
 }
