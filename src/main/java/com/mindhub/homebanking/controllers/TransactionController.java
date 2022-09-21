@@ -125,7 +125,7 @@ public class TransactionController {
         Account account = accountService.findByNumber(paymentApplicationDTO.getAccountNumber());
 //        Account accountTo = accountService.findByNumber(paymentApplicationDTO.getAccountNumberTo());
         Card card = cardService.findByNumberCard(paymentApplicationDTO.getCardNumber());
-        if (paymentApplicationDTO.getAmount() <= 0 || paymentApplicationDTO.getDescription().isEmpty() || paymentApplicationDTO.getAccountNumber().isEmpty() || paymentApplicationDTO.getAccountNumberTo().isEmpty() || paymentApplicationDTO.getCardCvv() < 0){
+        if (paymentApplicationDTO.getAmount() <= 0 || paymentApplicationDTO.getDescription().isEmpty() || paymentApplicationDTO.getAccountNumber().isEmpty() ||  paymentApplicationDTO.getCardCvv() < 0){
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
         if (!card.isActiveCard()){
