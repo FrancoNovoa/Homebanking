@@ -26,6 +26,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -129,7 +130,7 @@ public class TransactionController {
         if (!card.isActiveCard()){
             return new ResponseEntity<>("This card is disable", HttpStatus.FORBIDDEN);
         }
-        if (!paymentApplicationDTO.getThruDate().isAfter(LocalDateTime.now())){
+        if (!paymentApplicationDTO.getThruDate().isAfter(LocalDate.now())){
             return new ResponseEntity<>("This card was expired", HttpStatus.FORBIDDEN);
         }
 //        if (!client.getCards().contains(card)){

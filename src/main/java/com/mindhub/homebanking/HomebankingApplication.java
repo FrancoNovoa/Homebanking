@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -44,9 +45,9 @@ public class HomebankingApplication {
 			ClientLoan clientePrestamo2 = new ClientLoan(50000.00, prestamo2.getPayment().get(1), prestamo2,cliente1);
 			ClientLoan clientePrestamo3 = new ClientLoan(100000.00, prestamo2.getPayment().get(2), prestamo2,cliente2);
 			ClientLoan clientePrestamo4 = new ClientLoan(200000.00, prestamo3.getPayment().get(3), prestamo3,cliente2);
-			Card cartaSilver1 = new Card(cliente2.getName() + " " + cliente1.getLastName(), SILVER, CREDIT, 700, "0700-7077-0700-0707", LocalDateTime.now(), LocalDateTime.now().plusYears(7), cliente2, true);
-			Card cartaGold = new Card(cliente1.getName() + " " + cliente1.getLastName(), GOLD, DEBIT, 666, "8576-3678-1423-0065", LocalDateTime.now(), LocalDateTime.now().plusYears(5), cliente1, true);
-			Card cartaTitanium = new Card(cliente1.getName() + " " + cliente1.getLastName(), TITANIUM, CREDIT, 834, "0134-8239-2404-7432", LocalDateTime.now(), LocalDateTime.now().plusYears(5), cliente1, true);
+			Card cartaSilver1 = new Card(cliente2.getName() + " " + cliente1.getLastName(), SILVER, CREDIT, 700, "0700-7077-0700-0707", LocalDate.now(), LocalDate.now().plusYears(7), cliente2, true);
+			Card cartaGold = new Card(cliente1.getName() + " " + cliente1.getLastName(), GOLD, DEBIT, 666, "8576-3678-1423-0065", LocalDate.now(), LocalDate.now().plusYears(5), cliente1, true);
+			Card cartaTitanium = new Card(cliente1.getName() + " " + cliente1.getLastName(), TITANIUM, CREDIT, 834, "0134-8239-2404-7432", LocalDate.now(), LocalDate.now().plusYears(5), cliente1, true);
 
 			cliente1.addAccount(cuenta1);
 			cliente1.addAccount(cuenta2);

@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +39,7 @@ public class CardController {
             while (cardService.findByNumberCard(cardNumber)!=null){
                 cardNumber = CardUtils.getCardNumber();
             }
-            Card card = new Card(client.getName() + " " + client.getLastName(), cardColor, cardType, cvvNumber, cardNumber,LocalDateTime.now(),LocalDateTime.now().plusYears(5), client, true);
+            Card card = new Card(client.getName() + " " + client.getLastName(), cardColor, cardType, cvvNumber, cardNumber, LocalDate.now(),LocalDate.now().plusYears(5), client, true);
             cardService.saveCard(card);
             return new ResponseEntity<>("Card created successfully", HttpStatus.CREATED);
         }

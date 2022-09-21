@@ -3,6 +3,7 @@ package com.mindhub.homebanking.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,14 +20,14 @@ public class Card {
     private CardType cardType;
     private Integer cvv;
     private String numberCard;
-    private LocalDateTime fromDate;
-    private LocalDateTime untilDate;
+    private LocalDate fromDate;
+    private LocalDate untilDate;
     private boolean activeCard = true;
 
     public Card() {
     }
 
-    public Card(String cardHolder, CardColor cardColor, CardType cardType, Integer cvv, String numberCard, LocalDateTime fromDate, LocalDateTime untilDate, Client client, boolean activeCard) {
+    public Card(String cardHolder, CardColor cardColor, CardType cardType, Integer cvv, String numberCard, LocalDate fromDate, LocalDate untilDate, Client client, boolean activeCard) {
         this.cardHolder = cardHolder;
         this.cardColor = cardColor;
         this.cardType = cardType;
@@ -38,7 +39,7 @@ public class Card {
         this.activeCard = activeCard;
     }
 
-    public Card(String cardHolder, CardColor cardColor, CardType cardType, Integer cvv, String numberCard, LocalDateTime fromDate, LocalDateTime untilDate, boolean activeCard) {
+    public Card(String cardHolder, CardColor cardColor, CardType cardType, Integer cvv, String numberCard, LocalDate fromDate, LocalDate untilDate, boolean activeCard) {
         this.cardHolder = cardHolder;
         this.cardColor = cardColor;
         this.cardType = cardType;
@@ -100,19 +101,19 @@ public class Card {
         this.numberCard = numberCard;
     }
 
-    public LocalDateTime getFromDate() {
+    public LocalDate getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(LocalDateTime fromDate) {
+    public void setFromDate(LocalDate fromDate) {
         this.fromDate = fromDate;
     }
 
-    public LocalDateTime getUntilDate() {
+    public LocalDate getUntilDate() {
         return untilDate;
     }
 
-    public void setUntilDate(LocalDateTime untilDate) {
+    public void setUntilDate(LocalDate untilDate) {
         this.untilDate = untilDate;
     }
 

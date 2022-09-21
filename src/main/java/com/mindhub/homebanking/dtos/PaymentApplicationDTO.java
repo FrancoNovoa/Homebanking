@@ -3,6 +3,8 @@ package com.mindhub.homebanking.dtos;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Transaction;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class PaymentApplicationDTO {
@@ -10,7 +12,7 @@ public class PaymentApplicationDTO {
   private String cardNumber, description, cardHolder, accountNumber, accountNumberTo;
   private int cardCvv;
   private double amount;
-  private LocalDateTime thruDate;
+  private LocalDate thruDate;
 
   public PaymentApplicationDTO() {
   }
@@ -53,7 +55,7 @@ public class PaymentApplicationDTO {
     return amount;
   }
 
-  public LocalDateTime getThruDate() {
+  public LocalDate getThruDate() {
     return thruDate;
   }
 
