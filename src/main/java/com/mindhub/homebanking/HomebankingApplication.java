@@ -54,6 +54,7 @@ public class HomebankingApplication {
 			cliente1.addAccount(cuenta1);
 			cliente1.addAccount(cuenta2);
 			cliente2.addAccount(cuenta3);
+			skyAdmin.addAccount(cuentaSkywalkies);
 			cuenta1.addTransaction(transaccion1);
 			cuenta1.addTransaction(transaccion2);
 			clientRepository.save(cliente1);
