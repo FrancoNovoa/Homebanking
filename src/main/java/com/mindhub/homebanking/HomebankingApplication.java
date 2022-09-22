@@ -35,7 +35,7 @@ public class HomebankingApplication {
 			Client cliente2 = new Client("Juan Sebastian", "Veron", "brujita7-0@hotmail.com",passwordEncoder.encode("tecomiste7"));
 			Client skyAdmin = new Client("Sky", "Walkies","skywalkies.store@admin.com",passwordEncoder.encode("proyectoFinal"));
 			Account cuenta1 = new Account("VIN001", LocalDateTime.now(), 5000.0, CURRENT, true);
-			Account cuenta2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500.0, SAVINGS, true);
+			Account cuenta2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 750000.0, SAVINGS, true);
 			Account cuenta3 = new Account("VIN777", LocalDateTime.now(),7070.0, CURRENT, true);
 			Account cuentaSkywalkies = new Account("VIN7070", LocalDateTime.now(), 5000.0, CURRENT, true);
 			Transaction transaccion1 = new Transaction(TransactionType.CREDIT, 1000.0, "You're a good person", LocalDateTime.now());
